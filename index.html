@@ -1,11 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101a35">
+  <title>STARBOUND RUNNER</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    ようこそ私のページへ！
+  <main class="game-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">MINI ACTION / 01</p>
+        <h1>STARBOUND <span>RUNNER</span></h1>
+      </div>
+      <div class="status">
+        <div><span class="label">SCORE</span><strong id="score">000000</strong></div>
+        <div><span class="label">LIFE</span><strong id="life">♥♥♥</strong></div>
+      </div>
+    </header>
+
+    <section class="game-card" aria-label="横スクロールアクションゲーム">
+      <div class="canvas-wrap">
+        <canvas id="game" width="960" height="540" aria-label="ゲーム画面"></canvas>
+        <div id="message" class="message">
+          <p class="message-kicker">MISSION 01</p>
+          <h2>星を集めて<br>ゴールを目指せ</h2>
+          <p>移動して、敵を避けて、光のゲートへ。</p>
+          <button id="startButton" type="button">ゲームスタート</button>
+        </div>
+      </div>
+      <div class="hud">
+        <div class="progress"><span id="progress"></span></div>
+        <div class="hud-line"><span>SECTOR 01 / NEBULA CITY</span><span id="distance">0%</span></div>
+      </div>
+    </section>
+
+    <footer class="controls">
+      <p><kbd>A</kbd><kbd>D</kbd> 移動　 <kbd>W</kbd> / <kbd>↑</kbd> ジャンプ　 <kbd>SPACE</kbd> 攻撃</p>
+      <p class="touch-note">スマホでは画面下のボタンを使用</p>
+    </footer>
+  </main>
+  <div class="touch-controls" aria-label="タッチ操作">
+    <button data-key="left" aria-label="左へ">←</button>
+    <button data-key="right" aria-label="右へ">→</button>
+    <button data-key="jump" aria-label="ジャンプ">↟</button>
+    <button data-key="attack" aria-label="攻撃">✦</button>
+  </div>
+  <script src="game.js"></script>
 </body>
 </html>

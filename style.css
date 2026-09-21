@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root { --ink: #f4f6ff; --muted: #98a5c7; --cyan: #62efff; --pink: #ff668f; --panel: #151f3f; }
+* { box-sizing: border-box; }
+body {
+  margin: 0; min-height: 100vh; color: var(--ink); background: #080d1d;
+  font-family: 'Space Grotesk', sans-serif;
+  background-image: radial-gradient(circle at 50% -20%, #243a71 0, transparent 48%);
+}
+.game-shell { width: min(1120px, calc(100% - 32px)); margin: 0 auto; padding: 42px 0 24px; }
+.topbar { display: flex; align-items: end; justify-content: space-between; margin-bottom: 20px; }
+.eyebrow, .label { color: var(--cyan); font-size: 11px; letter-spacing: .18em; margin: 0 0 6px; }
+h1 { font-size: clamp(25px, 4vw, 42px); line-height: 1; letter-spacing: .08em; margin: 0; font-weight: 700; }
+h1 span { color: var(--pink); }
+.status { display: flex; gap: 28px; text-align: right; }
+.status div { display: grid; gap: 3px; }
+.status strong { font-size: 21px; letter-spacing: .12em; }
+#life { color: var(--pink); letter-spacing: .25em; }
+.game-card { border: 1px solid #2c3b68; border-radius: 14px; padding: 10px; background: #111a34; box-shadow: 0 20px 70px #02040d99; }
+.canvas-wrap { position: relative; overflow: hidden; border-radius: 8px; background: #0c1531; }
+canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+.message { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; background: #070c1dcc; backdrop-filter: blur(5px); }
+.message.hidden { display: none; }
+.message-kicker { color: var(--cyan); font-size: 12px; letter-spacing: .25em; margin: 0 0 12px; }
+.message h2 { font-size: clamp(28px, 5vw, 52px); line-height: 1.08; margin: 0 0 13px; }
+.message > p:not(.message-kicker) { color: var(--muted); margin: 0 0 25px; }
+button { font: inherit; cursor: pointer; }
+#startButton { border: 0; border-radius: 5px; padding: 14px 30px; color: #071020; background: var(--cyan); font-weight: 700; letter-spacing: .08em; transition: transform .15s, background .15s; }
+#startButton:hover { transform: translateY(-2px); background: #b4f9ff; }
+.hud { padding: 10px 2px 0; }
+.progress { height: 4px; border-radius: 10px; background: #293657; overflow: hidden; }
+.progress span { display: block; width: 0; height: 100%; background: linear-gradient(90deg, var(--cyan), var(--pink)); transition: width .15s; }
+.hud-line { display: flex; justify-content: space-between; padding-top: 8px; color: var(--muted); font-size: 10px; letter-spacing: .12em; }
+.controls { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; letter-spacing: .05em; padding: 15px 3px; }
+kbd { display: inline-block; min-width: 25px; padding: 4px 6px; margin: 0 2px; color: var(--ink); border: 1px solid #536385; border-radius: 4px; text-align: center; font-size: 10px; }
+.touch-controls { display: none; }
+@media (max-width: 600px) {
+  .game-shell { width: calc(100% - 18px); padding-top: 24px; }
+  .topbar { align-items: start; }
+  .status { gap: 12px; }
+  .status strong { font-size: 15px; }
+  .controls { display: block; text-align: center; }
+  .touch-note { display: none; }
+  .touch-controls { display: flex; justify-content: center; gap: 9px; padding: 8px 0 20px; }
+  .touch-controls button { width: 54px; height: 44px; border: 1px solid #3c4d7b; border-radius: 8px; color: var(--ink); background: #172344; font-size: 20px; }
+  .touch-controls button:active { background: var(--cyan); color: #081228; }
+}
