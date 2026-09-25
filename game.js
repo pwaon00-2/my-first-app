@@ -8,6 +8,7 @@ const message = document.querySelector("#message");
 const startButton = document.querySelector("#startButton");
 
 const W = canvas.width, H = canvas.height;
+ctx.imageSmoothingEnabled = false;
 const worldWidth = 4200;
 const keys = { left: false, right: false, attack: false };
 let gameState = "ready", lastTime = 0, camera = 0, score = 0, lives = 3, stars = 0;
@@ -77,16 +78,16 @@ function end(title, sub) {
   startButton.textContent = title === "GAME OVER" ? "リトライ" : "もう一度遊ぶ";
 }
 function draw() {
-  const gradient = ctx.createLinearGradient(0, 0, 0, H); gradient.addColorStop(0, "#101b46"); gradient.addColorStop(1, "#1b1740"); ctx.fillStyle = gradient; ctx.fillRect(0, 0, W, H);
-  ctx.fillStyle = "#ffffff"; starsBg.forEach(s => { const x = (s.x - camera * .12 + W) % W; ctx.globalAlpha = .35 + (s.r / 4); ctx.beginPath(); ctx.arc(x, s.y, s.r, 0, Math.PI * 2); ctx.fill(); }); ctx.globalAlpha = 1;
+  ctx.fillStyle = "#211542"; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = "#fff4d6"; starsBg.forEach(s => { const x = (s.x - camera * .12 + W) % W; ctx.globalAlpha = .45 + (s.r / 5); ctx.fillRect(Math.floor(x), s.y, s.r + 1, s.r + 1); }); ctx.globalAlpha = 1;
   ctx.save(); ctx.translate(-camera, 0);
-  ctx.fillStyle = "#20245a"; for (let x = 0; x < worldWidth; x += 150) { const h = 80 + (x * 17) % 110; ctx.fillRect(x, 470 - h, 100, h); }
-  platforms.forEach(p => { ctx.fillStyle = "#283567"; ctx.fillRect(p.x, p.y, p.w, p.h); ctx.fillStyle = "#62efff"; ctx.fillRect(p.x, p.y, p.w, 5); });
-  collectibles.forEach(c => { if (!c.taken) { ctx.fillStyle = "#ffe178"; ctx.beginPath(); ctx.arc(c.x, c.y, 9 + Math.sin(Date.now() / 180 + c.x) * 2, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = "#fff7bb"; ctx.beginPath(); ctx.arc(c.x - 3, c.y - 3, 3, 0, Math.PI * 2); ctx.fill(); } });
-  enemies.forEach(e => { if (e.alive) { ctx.fillStyle = "#ff668f"; ctx.fillRect(e.x, e.y, e.w, e.h); ctx.fillStyle = "#10152d"; ctx.fillRect(e.x + 6, e.y + 9, 5, 5); ctx.fillRect(e.x + 17, e.y + 9, 5, 5); ctx.fillStyle = "#ff9db6"; ctx.fillRect(e.x - 4, e.y - 5, e.w + 8, 5); } });
-  ctx.fillStyle = "#b8faff"; ctx.fillRect(4000, 310, 8, 160); ctx.fillStyle = "#ff668f"; ctx.beginPath(); ctx.moveTo(4008, 315); ctx.lineTo(4080, 335); ctx.lineTo(4008, 355); ctx.fill();
-  if (!(player.invincible > 0 && Math.floor(player.invincible / 5) % 2 === 0)) { ctx.fillStyle = "#62efff"; ctx.fillRect(player.x, player.y, player.w, player.h); ctx.fillStyle = "#172344"; ctx.fillRect(player.x + 7, player.y + 9, 6, 6); ctx.fillRect(player.x + 19, player.y + 9, 6, 6); ctx.fillStyle = "#ff668f"; ctx.fillRect(player.x - 3, player.y + 28, player.w + 6, 7); }
-  if (player.attackTime > 0) { ctx.strokeStyle = "#ffe178"; ctx.lineWidth = 5; ctx.beginPath(); const a = attackBox(); ctx.arc(a.x + 16, a.y + 14, 23, player.facing > 0 ? -.8 : 2.3, player.facing > 0 ? .8 : 3.8); ctx.stroke(); }
+  ctx.fillStyle = "#38235d"; for (let x = 0; x < worldWidth; x += 150) { const h = 80 + (x * 17) % 110; ctx.fillRect(x, 470 - h, 100, h); ctx.fillStyle = "#ffd447"; for (let wy = 470 - h + 18; wy < 455; wy += 24) { ctx.fillRect(x + 14, wy, 9, 5); ctx.fillRect(x + 38, wy, 9, 5); ctx.fillRect(x + 70, wy, 9, 5); } ctx.fillStyle = "#38235d"; }
+  platforms.forEach(p => { ctx.fillStyle = "#694675"; ctx.fillRect(p.x, p.y, p.w, p.h); ctx.fillStyle = "#29d8d8"; ctx.fillRect(p.x, p.y, p.w, 6); ctx.fillStyle = "#211542"; for (let x = p.x + 12; x < p.x + p.w - 8; x += 28) ctx.fillRect(x, p.y + 17, 18, 7); });
+  collectibles.forEach(c => { if (!c.taken) { const y = Math.round(c.y + Math.sin(Date.now() / 180 + c.x) * 2); ctx.fillStyle = "#ffd447"; ctx.fillRect(c.x - 8, y - 5, 16, 10); ctx.fillRect(c.x - 4, y - 9, 8, 18); ctx.fillStyle = "#fff4d6"; ctx.fillRect(c.x - 3, y - 4, 4, 4); } });
+  enemies.forEach(e => { if (e.alive) { ctx.fillStyle = "#e83f8c"; ctx.fillRect(e.x, e.y + 6, e.w, e.h - 6); ctx.fillStyle = "#ffd447"; ctx.fillRect(e.x - 4, e.y, e.w + 8, 6); ctx.fillStyle = "#211542"; ctx.fillRect(e.x + 5, e.y + 15, 6, 6); ctx.fillRect(e.x + 17, e.y + 15, 6, 6); ctx.fillStyle = "#29d8d8"; ctx.fillRect(e.x + 4, e.y + e.h, 7, 4); ctx.fillRect(e.x + 17, e.y + e.h, 7, 4); } });
+  ctx.fillStyle = "#29d8d8"; ctx.fillRect(4000, 310, 8, 160); ctx.fillStyle = "#e83f8c"; ctx.fillRect(4008, 315, 72, 40); ctx.fillStyle = "#fff4d6"; ctx.font = "10px monospace"; ctx.fillText("GO!", 4022, 340);
+  if (!(player.invincible > 0 && Math.floor(player.invincible / 5) % 2 === 0)) { ctx.fillStyle = "#29d8d8"; ctx.fillRect(player.x, player.y + 5, player.w, player.h - 5); ctx.fillStyle = "#ffd447"; ctx.fillRect(player.x + 5, player.y, 20, 8); ctx.fillStyle = "#211542"; ctx.fillRect(player.x + 7, player.y + 14, 5, 5); ctx.fillRect(player.x + 19, player.y + 14, 5, 5); ctx.fillStyle = "#e83f8c"; ctx.fillRect(player.x - 3, player.y + 32, player.w + 6, 7); }
+  if (player.attackTime > 0) { ctx.strokeStyle = "#ffd447"; ctx.lineWidth = 5; ctx.beginPath(); const a = attackBox(); ctx.moveTo(a.x + 4, a.y + 24); ctx.lineTo(a.x + 28, a.y + 4); ctx.stroke(); }
   ctx.restore();
 }
 function loop(time) { const dt = Math.min(2, (time - lastTime) / 16.67 || 1); lastTime = time; if (gameState === "playing") update(dt); draw(); requestAnimationFrame(loop); }
