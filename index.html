@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#e8e3d2">
+    <title>Skybound — 横スクロールアクション</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="game.js" defer></script>
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Skybound ホーム">
+          <span class="brand-mark" aria-hidden="true">✦</span>
+          <span>SKYBOUND</span>
+        </a>
+        <div class="game-meta">
+          <span class="level-label">WORLD 01 <span class="meta-divider">/</span> はじまりの草原</span>
+          <span class="coin-counter" aria-live="polite"><span aria-hidden="true">●</span> <span id="coin-count">0</span> / 5</span>
+        </div>
+        <button class="restart-button" id="restart-button" type="button" aria-label="最初からやり直す">
+          <span aria-hidden="true">↻</span> <span class="restart-text">やり直す</span>
+        </button>
+      </header>
+
+      <section class="game-area" aria-label="ゲーム画面">
+        <canvas id="game" aria-label="横スクロールアクションゲーム。左右キーで移動、スペースキーでジャンプ。"></canvas>
+        <div class="intro-card" id="intro-card">
+          <span class="intro-eyebrow">YOUR ADVENTURE STARTS HERE</span>
+          <h1>風の向こうへ。</h1>
+          <p>コインを集めて、ゴールの旗を目指そう。</p>
+          <button class="start-button" id="start-button" type="button">冒険をはじめる <span aria-hidden="true">→</span></button>
+          <div class="intro-controls">
+            <span><kbd>←</kbd> <kbd>→</kbd> 移動</span>
+            <span><kbd>Space</kbd> ジャンプ</span>
+          </div>
+        </div>
+        <div class="result-card" id="result-card" hidden>
+          <span class="intro-eyebrow" id="result-eyebrow">STAGE CLEAR</span>
+          <h2 id="result-title">やったね！</h2>
+          <p id="result-message">コインを集めてゴールしました。</p>
+          <button class="start-button" id="play-again-button" type="button">もう一度あそぶ <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="toast" id="toast" aria-live="polite"></div>
+      </section>
+
+      <footer class="bottombar">
+        <div class="controls-hint">
+          <span class="key-group"><kbd>←</kbd><kbd>→</kbd> <span>移動</span></span>
+          <span class="key-group"><kbd>Space</kbd> <span>ジャンプ</span></span>
+        </div>
+        <p>あわてず、ひとつずつ。<span aria-hidden="true">✦</span></p>
+        <div class="mobile-controls" aria-label="タッチ操作">
+          <button type="button" class="touch-button" data-control="left" aria-label="左へ移動">←</button>
+          <button type="button" class="touch-button" data-control="right" aria-label="右へ移動">→</button>
+          <button type="button" class="touch-button jump-button" data-control="jump" aria-label="ジャンプ">JUMP</button>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
